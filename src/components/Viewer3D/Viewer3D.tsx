@@ -90,36 +90,62 @@ const IBtn = styled.button<{ $sel?: boolean }>`
   &:hover{background:rgba(0,0,0,0.04);}
 `
 
-// ─── Toolbar ──────────────────────────────────────────────────────────────────
+// ─── Global Header (Weave 3.0 spec) ──────────────────────────────────────────
+// Sections (L→R): Application info | Contextual info (center) | Service center | User management | Window controls
 
-const ToolbarRoot = styled.header`
-  display:flex;align-items:center;justify-content:space-between;
-  width:100%;padding:${t.sp6} ${t.sp24};
+const GlobalHeader = styled.header`
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  width:100%;
+  height:48px;
+  padding:0 ${t.sp16};
   background:rgba(255,255,255,0.92);
   backdrop-filter:blur(12.5px);
   border-bottom:1px solid ${t.borderLight};
   flex-shrink:0;position:relative;z-index:10;
 `
-const HubBtn = styled.div`
-  display:flex;align-items:center;gap:${t.sp12};
-  height:44px;
-  padding:${t.sp8} ${t.sp24} ${t.sp8} ${t.sp12};
-  border-radius:8px;cursor:pointer;
+
+/* 1. Application info – always leftmost */
+const AppInfo = styled.div`
+  display:flex;align-items:center;gap:${t.sp8};
+  cursor:pointer;
+  padding:${t.sp4} ${t.sp8};
+  border-radius:${t.radiusM};
+  &:hover{background:rgba(0,0,0,0.04);}
 `
-const Label = styled.p<{ $bold?: boolean }>`
-  font-family:${t.font};font-size:${t.fontSize};
-  font-weight:${p => (p.$bold ? 700 : 600)};
+const AppName = styled.span`
+  font-family:${t.font};font-size:${t.fontSize};font-weight:700;
   color:${t.textMedium};white-space:nowrap;line-height:${t.lineHeight};
 `
-const V1Badge = styled.div`
+
+/* 2. Contextual info – center-aligned (document/model name + version + caret) */
+const ContextualInfo = styled.div`
+  display:flex;align-items:center;gap:${t.sp8};
+  justify-content:center;
+  cursor:pointer;
+  padding:${t.sp4} ${t.sp8};
+  border-radius:${t.radiusM};
+  &:hover{background:rgba(0,0,0,0.04);}
+`
+const ModelName = styled.span`
+  font-family:${t.font};font-size:${t.fontSize};font-weight:600;
+  color:${t.textMedium};white-space:nowrap;line-height:${t.lineHeight};
+`
+const VersionBadge = styled.div`
   display:flex;align-items:center;height:24px;
   padding:0 ${t.sp12};border-radius:1000px;
   background:${t.bgStatusNewLight};
   border:1px solid ${t.borderStatusNew};
 `
-const BadgeLabel = styled.p`
+const VersionLabel = styled.span`
   font-family:${t.font};font-size:${t.fontSize};font-weight:700;
   color:${t.textStatusNew};white-space:nowrap;line-height:${t.lineHeight};
+`
+
+/* 3+4+5. Right sections: Service center + User management + Window controls */
+const RightSections = styled.div`
+  display:flex;align-items:center;justify-content:flex-end;gap:${t.sp4};
 `
 const AvatarBundleWrap = styled.div`display:flex;align-items:center;padding-right:7px;`
 const AvatarWrap = styled.div<{ $z: number }>`
@@ -137,22 +163,32 @@ const AvatarText = styled.span<{ $c: string }>`
 `
 
 const Toolbar: React.FC = () => (
-  <ToolbarRoot data-node-id="2045:55761">
-    <HubBtn data-node-id="2045:55762">
-      <Ico16 src={imgAutodeskSymbol} alt="Autodesk" />
-      <Label $bold>Docs</Label>
-      <VDivider h={50} />
-      <Label>Viewing 1 model</Label>
-      <V1Badge><BadgeLabel>V1</BadgeLabel></V1Badge>
-      <Ico16 src={imgCaretDown} alt="" style={{ transform: 'rotate(180deg)' }} />
-    </HubBtn>
+  <GlobalHeader data-node-id="2045:55761" aria-label="Global header">
 
-    <div style={{ display: 'flex', alignItems: 'center', gap: t.sp12, alignSelf: 'stretch' }}>
+    {/* 1 — Application info (required): product identity, leftmost */}
+    <AppInfo data-section="application-info" aria-label="Application info">
+      <Ico16 src={imgAutodeskSymbol} alt="Autodesk" />
+      <AppName>Docs</AppName>
+    </AppInfo>
+
+    {/* 2 — Contextual info (required): center-aligned, shows current model/document */}
+    <ContextualInfo data-section="contextual-info" aria-label="Contextual info">
+      <ModelName>Viewing 1 model</ModelName>
+      <VersionBadge><VersionLabel>V1</VersionLabel></VersionBadge>
+      <Ico16 src={imgCaretDown} alt="" style={{ transform: 'rotate(180deg)' }} />
+    </ContextualInfo>
+
+    {/* 3+4+5 — Service center + User management + Window controls */}
+    <RightSections>
+      {/* Service center (required): settings, help, more */}
       <IBtn aria-label="Settings"><Ico16 src={imgSettings} alt="" /></IBtn>
       <IBtn aria-label="Help"><Ico16 src={imgHelp} alt="" /></IBtn>
-      <IBtn aria-label="More"><Ico16 src={imgMoreVertical} alt="" /></IBtn>
+      <IBtn aria-label="More options"><Ico16 src={imgMoreVertical} alt="" /></IBtn>
 
-      <AvatarBundleWrap>
+      <VDivider h={16} />
+
+      {/* User management (required): avatar bundle showing active collaborators */}
+      <AvatarBundleWrap data-section="user-management" aria-label="Active users">
         <AvatarWrap $z={3}>
           <AvatarCircle $bg="#faf0ec" $bc="rgba(164,82,41,0.2)">
             <AvatarText $c="#a45229">FL</AvatarText>
@@ -170,10 +206,15 @@ const Toolbar: React.FC = () => (
         </AvatarWrap>
       </AvatarBundleWrap>
 
-      <VDivider />
-      <IBtn aria-label="Collapse"><Ico16 src={imgCollapseRight} alt="" style={{ transform: 'rotate(-90deg)' }} /></IBtn>
-    </div>
-  </ToolbarRoot>
+      <VDivider h={16} />
+
+      {/* Window controls: collapse/close */}
+      <IBtn aria-label="Close panel" data-section="window-controls">
+        <Ico16 src={imgCollapseRight} alt="" style={{ transform: 'rotate(-90deg)' }} />
+      </IBtn>
+    </RightSections>
+
+  </GlobalHeader>
 )
 
 // ─── Left Navigation Panel ────────────────────────────────────────────────────
