@@ -182,7 +182,6 @@ const NavPanel = styled.nav`
   position:absolute;left:1px;top:0;bottom:0;width:48px;
   background:${t.white};
   border-right:1px solid ${t.borderLight};
-  border-bottom-left-radius:${t.radiusXL};
   display:flex;flex-direction:column;
   padding:${t.sp8} ${t.sp8} 48px;
   z-index:5;gap:${t.sp12};
@@ -326,7 +325,6 @@ const ViewerRoot = styled.div`
 const CanvasContainer = styled.div`
   position:absolute;inset:0;
   border:1px solid ${t.borderLight};
-  border-radius:${t.radiusXL};
   display:flex;flex-direction:column;
   overflow:hidden;
 `
