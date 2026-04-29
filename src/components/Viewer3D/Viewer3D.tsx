@@ -80,7 +80,6 @@ const t = {
 // ─── Primitives ───────────────────────────────────────────────────────────────
 const Ico16 = styled.img`width:16px;height:16px;display:block;flex-shrink:0;`
 const Ico12 = styled.img`width:12px;height:12px;display:block;flex-shrink:0;`
-const Ico24 = styled.img`width:24px;height:24px;display:block;flex-shrink:0;`
 
 const VDivider = styled.div<{ h?: number | string }>`
   width:1px;
@@ -231,26 +230,26 @@ const NavPanel = styled.nav`
   z-index:5;gap:${t.sp12};
   border-bottom-left-radius:${t.radiusXL};
 `
-const NavGroup = styled.div`display:flex;flex-direction:column;gap:${t.sp4};width:36px;`
-const Icon3D = styled.div`position:relative;width:24px;height:24px;`
+const NavGroup = styled.div`display:flex;flex-direction:column;gap:${t.sp4};width:32px;`
+const Icon3D = styled.div`position:relative;width:16px;height:16px;`
 
 const NavigationPanel: React.FC = () => (
   <NavPanel data-node-id="2296:15401">
     <NavGroup>
-      <IBtn aria-label="Menu"><Ico24 src={imgNavHamburger} alt="" /></IBtn>
-      <IBtn aria-label="Share"><Ico24 src={imgNavShare} alt="" /></IBtn>
+      <IBtn aria-label="Menu"><Ico16 src={imgNavHamburger} alt="" /></IBtn>
+      <IBtn aria-label="Share"><Ico16 src={imgNavShare} alt="" /></IBtn>
     </NavGroup>
 
     <HDivider />
 
     <NavGroup>
-      <IBtn aria-label="Properties"><Ico24 src={imgNavProperties} alt="" /></IBtn>
-      <IBtn aria-label="Model"><Ico24 src={imgNavModel} alt="" /></IBtn>
+      <IBtn aria-label="Properties"><Ico16 src={imgNavProperties} alt="" /></IBtn>
+      <IBtn aria-label="Model"><Ico16 src={imgNavModel} alt="" /></IBtn>
       <IBtn $sel aria-label="3D View">
         <Icon3D>
           <img src={imgNav3DActive2} alt="" style={{ position:'absolute', top:'6.25%', left:'6.25%', right:'6.25%', bottom:'0', width:'87.5%', height:'93.75%' }} />
           <img src={imgNav3DActive1} alt="" style={{ position:'absolute', bottom:'6.39%', right:'6.25%', width:'29.7%', height:'31.11%' }} />
-          <img src={imgNav3DActiveDot} alt="" style={{ position:'absolute', bottom:0, right:0, width:8, height:8 }} />
+          <img src={imgNav3DActiveDot} alt="" style={{ position:'absolute', bottom:0, right:0, width:6, height:6 }} />
         </Icon3D>
       </IBtn>
     </NavGroup>
@@ -517,39 +516,39 @@ const BottomToolbars: React.FC = () => (
     <FloatBar>
       <SegCtrl>
         <SegBtn aria-label="2D">2D</SegBtn>
-        <SegBtn aria-label="Align"><Ico24 src={imgBtnAlign} alt="" /></SegBtn>
+        <SegBtn aria-label="Align"><Ico16 src={imgBtnAlign} alt="" /></SegBtn>
         <SegBtn $sel aria-label="3D">3D</SegBtn>
       </SegCtrl>
       <VDivider h={16} />
-      <IBtn aria-label="Fit"><Ico24 src={imgBtnFit} alt="" /></IBtn>
+      <IBtn aria-label="Fit"><Ico16 src={imgBtnFit} alt="" /></IBtn>
     </FloatBar>
 
     <FloatBar>
       <SplitB aria-label="Navigation">
-        <div style={{ display:'flex',alignItems:'center',justifyContent:'center',minWidth:36,minHeight:36,padding:t.sp4 }}>
-          <Ico24 src={imgBtnNavigation} alt="" />
+        <div style={{ display:'flex',alignItems:'center',justifyContent:'center',minWidth:32,minHeight:32,padding:t.sp4 }}>
+          <Ico16 src={imgBtnNavigation} alt="" />
         </div>
-        <div style={{ display:'flex',alignItems:'center',justifyContent:'center',height:36,padding:`0 ${t.sp4}` }}>
+        <div style={{ display:'flex',alignItems:'center',justifyContent:'center',height:32,padding:`0 ${t.sp4}` }}>
           <Ico12 src={imgBtnCaret} alt="" style={{ transform:'rotate(180deg)' }} />
         </div>
       </SplitB>
-      <IBtn $sel aria-label="Markup"><Ico24 src={imgBtnMarkup} alt="" /></IBtn>
-      <IBtn aria-label="Zoom"><Ico24 src={imgBtnZoom} alt="" /></IBtn>
+      <IBtn $sel aria-label="Markup"><Ico16 src={imgBtnMarkup} alt="" /></IBtn>
+      <IBtn aria-label="Zoom"><Ico16 src={imgBtnZoom} alt="" /></IBtn>
       <VDivider h={16} />
-      <IBtn aria-label="Section"><Ico24 src={imgBtnSection} alt="" /></IBtn>
+      <IBtn aria-label="Section"><Ico16 src={imgBtnSection} alt="" /></IBtn>
     </FloatBar>
 
     <FloatBar>
-      <IBtn aria-label="Cut"><Ico24 src={imgCutIcon} alt="" /></IBtn>
+      <IBtn aria-label="Cut"><Ico16 src={imgCutIcon} alt="" /></IBtn>
       <SplitB aria-label="Layers">
-        <div style={{ display:'flex',alignItems:'center',justifyContent:'center',minWidth:36,minHeight:36,padding:t.sp4 }}>
-          <Ico24 src={imgNavModel} alt="" />
+        <div style={{ display:'flex',alignItems:'center',justifyContent:'center',minWidth:32,minHeight:32,padding:t.sp4 }}>
+          <Ico16 src={imgNavModel} alt="" />
         </div>
-        <div style={{ display:'flex',alignItems:'center',justifyContent:'center',height:36,padding:`0 ${t.sp4}` }}>
+        <div style={{ display:'flex',alignItems:'center',justifyContent:'center',height:32,padding:`0 ${t.sp4}` }}>
           <Ico12 src={imgBtnCaret} alt="" style={{ transform:'rotate(180deg)' }} />
         </div>
       </SplitB>
-      <IBtn aria-label="Markup2"><Ico24 src={imgBtnMarkup} alt="" /></IBtn>
+      <IBtn aria-label="Markup2"><Ico16 src={imgBtnMarkup} alt="" /></IBtn>
     </FloatBar>
   </BottomGroup>
 )
